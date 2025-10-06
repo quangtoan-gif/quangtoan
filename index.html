@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trung Thu Vui Vẻ 🎑</title>
+  <style>
+    body {
+      margin: 0;
+      background: radial-gradient(circle at center, #ffecd2, #fcb69f);
+      overflow: hidden;
+      font-family: 'Poppins', sans-serif;
+      text-align: center;
+    }
+
+    h1 {
+      color: #fff;
+      text-shadow: 2px 2px 10px #ff66b2;
+      font-size: 2.5em;
+      margin-top: 25vh;
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #fff, 0 0 20px #ff33cc; }
+      to { text-shadow: 0 0 30px #fff, 0 0 60px #ff33cc; }
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+    }
+
+    .lantern {
+      position: absolute;
+      width: 50px;
+      animation: float 6s linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes float {
+      from { transform: translateY(100vh) rotate(0deg); }
+      to { transform: translateY(-10vh) rotate(360deg); }
+    }
+
+    footer {
+      position: fixed;
+      bottom: 20px;
+      width: 100%;
+      color: white;
+      font-size: 1.2em;
+      text-shadow: 0 0 5px #ff99cc;
+    }
+  </style>
+</head>
+<body>
+  <h1>🌕 Trung Thu Vui Vẻ 💖<br>Chúc chị sớm có người yêu 🎐</h1>
+  <canvas id="fireworks"></canvas>
+  <footer>— Quang Toàn Studio 🎶 —</footer>
+
+  <!-- Nhạc nền Trung Thu -->
+  <audio autoplay loop>
+    <source src="https://cdn.pixabay.com/download/audio/2023/09/20/audio_2a7b51117b.mp3?filename=mid-autumn-festival-163506.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    // Pháo hoa
+    const canvas = document.getElementById('fireworks');
+    const ctx = canvas.getContext('2d');
+    canvas.width = innerWidth;
+    canvas.height = innerHeight;
+    const fireworks = [];
+
+    function random(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+
+    function createFirework() {
+      const x = random(0, canvas.width);
+      const y = random(canvas.height / 2, canvas.height);
+      const color = `hsl(${random(0,360)},100%,60%)`;
+      for (let i = 0; i < 50; i++) {
+        fireworks.push({
+          x, y,
+          dx: random(-5, 5),
+          dy: random(-5, 5),
+          alpha: 1,
+          color
+        });
+      }
+    }
+
+    function animate() {
+      ctx.fillStyle = "rgba(0,0,0,0.1)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      for (let i = fireworks.length - 1; i >= 0; i--) {
+        const f = fireworks[i];
+        f.x += f.dx;
+        f.y += f.dy;
+        f.alpha -= 0.02;
+        if (f.alpha <= 0) fireworks.splice(i, 1);
+        else {
+          ctx.fillStyle = f.color;
+          ctx.globalAlpha = f.alpha;
+          ctx.beginPath();
+          ctx.arc(f.x, f.y, 2, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+      requestAnimationFrame(animate);
+    }
+
+    setInterval(createFirework, 1000);
+    animate();
+
+    // Đèn lồng rơi
+    for (let i = 0; i < 8; i++) {
+      const lantern = document.createElement("img");
+      lantern.src = "https://cdn-icons-png.flaticon.com/512/2965/2965903.png";
+      lantern.className = "lantern";
+      lantern.style.left = `${Math.random() * 100}vw`;
+      lantern.style.animationDuration = `${4 + Math.random() * 4}s`;
+      document.body.appendChild(lantern);
+    }
+  </script>
+</body>
+</html>
