@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Trung Thu Vui Vẻ 🎑 | Quang Toàn Studio</title>
+  <title>Trung Thu Vui Vẻ 🎑 | Quang Toàn deptrai</title>
   <style>
     body {
       margin: 0;
